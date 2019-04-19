@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.format.DateUtils;
 
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 import java.util.TimeZone;
 
 import ar.com.tesina.climapp.R;
@@ -16,12 +17,11 @@ class SunshineDateUtils {
     public static final long DAY_IN_MILLIS = HOUR_IN_MILLIS * 24;
 
     /**
-     * This method returns the number of days since the epoch (January 01, 1970, 12:00 Midnight UTC)
-     * in UTC time from the current date.
+     * Devuelve numero de dias desde "January 01, 1970, 12:00 Midnight UTC" hasta ahora
      *
-     * @param date A date in milliseconds in local time.
+     * @param date
      *
-     * @return The number of days in UTC time from the epoch.
+     * @return numero de dias (UTC)
      */
     public static long getDayNumber(long date) {
         TimeZone tz = TimeZone.getDefault();
@@ -30,26 +30,23 @@ class SunshineDateUtils {
     }
 
     /**
-     * To make it easy to query for the exact date, we normalize all dates that go into
-     * the database to the start of the day in UTC time.
+     * Normalizamos todas las fechas en hora UTC.
      *
-     * @param date The UTC date to normalize
+     * @param date
      *
-     * @return The UTC date at 12 midnight
+     * @return
      */
     public static long normalizeDate(long date) {
-        // Normalize the start date to the beginning of the (UTC) day in local time
+        // Normaliza la fecha de inicio al comienzo del día (UTC) en la hora local
         long retValNew = date / DAY_IN_MILLIS * DAY_IN_MILLIS;
         return retValNew;
     }
 
     /**
-     * Since all dates from the database are in UTC, we must convert the given date
-     * (in UTC timezone) to the date in the local timezone. Ths function performs that conversion
-     * using the TimeZone offset.
+     * Convierte la fecha dada (en la zona horaria UTC) a la fecha en la zona horaria local.
      *
-     * @param utcDate The UTC datetime to convert to a local datetime, in milliseconds.
-     * @return The local date (the UTC datetime - the TimeZone offset) in milliseconds.
+     * @param utcDate
+     * @return
      */
     public static long getLocalDateFromUTC(long utcDate) {
         TimeZone tz = TimeZone.getDefault();
@@ -58,11 +55,10 @@ class SunshineDateUtils {
     }
 
     /**
-     * Since all dates from the database are in UTC, we must convert the local date to the date in
-     * UTC time. This function performs that conversion using the TimeZone offset.
+     * Convierte la fecha local a UTC
      *
-     * @param localDate The local datetime to convert to a UTC datetime, in milliseconds.
-     * @return The UTC date (the local datetime + the TimeZone offset) in milliseconds.
+     * @param localDate
+     * @return
      */
     public static long getUTCDateFromLocal(long localDate) {
         TimeZone tz = TimeZone.getDefault();
@@ -71,22 +67,13 @@ class SunshineDateUtils {
     }
 
     /**
-     * Helper method to convert the database representation of the date into something to display
-     * to users.  As classy and polished a user experience as "20140102" is, we can do better.
-     * <p/>
-     * The day string for forecast uses the following logic:
-     * For today: "Today, June 8"
-     * For tomorrow:  "Tomorrow"
-     * For the next 5 days: "Wednesday" (just the day name)
-     * For all days after that: "Mon, Jun 8" (Mon, 8 Jun in UK, for example)
+     * Devuelve los datos de la fecha en forma amigable para el usuario
      *
-     * @param context      Context to use for resource localization
-     * @param dateInMillis The date in milliseconds (UTC)
-     * @param showFullDate Used to show a fuller-version of the date, which always contains either
-     *                     the day of the week, today, or tomorrow, in addition to the date.
+     * @param context
+     * @param dateInMillis
+     * @param showFullDate
      *
-     * @return A user-friendly representation of the date such as "Today, June 8", "Tomorrow",
-     * or "Friday"
+     * @return
      */
     public static String getFriendlyDateString(Context context, long dateInMillis, boolean showFullDate) {
 
@@ -148,13 +135,12 @@ class SunshineDateUtils {
     }
 
     /**
-     * Given a day, returns just the name to use for that day.
-     *   E.g "today", "tomorrow", "Wednesday".
+     * Dado un dia retorna el nombre, ej: hoy, mañana, miercoles.
      *
-     * @param context      Context to use for resource localization
-     * @param dateInMillis The date in milliseconds (local time)
+     * @param context
+     * @param dateInMillis
      *
-     * @return the string day of the week
+     * @return dia de la semana
      */
     private static String getDayName(Context context, long dateInMillis) {
         /*
@@ -168,11 +154,8 @@ class SunshineDateUtils {
         } else if (dayNumber == currentDayNumber + 1) {
             return context.getString(R.string.tomorrow);
         } else {
-            /*
-             * Otherwise, if the day is not today, the format is just the day of the week
-             * (e.g "Wednesday")
-             */
-            SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE");
+            Locale spanishLocale=new Locale("es", "ES");
+            SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE", spanishLocale);
             return dayFormat.format(dateInMillis);
         }
     }
