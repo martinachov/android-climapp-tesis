@@ -6,8 +6,13 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import ar.com.tesina.climapp.utilities.NetworkUtils;
+import ar.com.tesina.climapp.utilities.OpenWeatherJsonUtils;
+
+import static ar.com.tesina.climapp.data.SunshinePreferences.*;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,8 +32,7 @@ public class MainActivity extends AppCompatActivity {
      *
      */
     private void loadWeatherData() {
-        //String location = SunshinePreferences.getPreferredWeatherLocation(this);
-        String location = "3432043";
+        String location = getPreferredWeatherLocation(this);
         new FetchWeatherTask().execute(location);
     }
 
@@ -45,10 +49,23 @@ public class MainActivity extends AppCompatActivity {
             }
 
             String location = params[0];
-
             URL weatherRequestUrl = NetworkUtils.buildUrl(location);
 
-            return null;
+            try {
+
+                String jsonWeatherResponse = NetworkUtils
+                        .getResponseFromHttpUrl(weatherRequestUrl);
+
+                String[] simpleJsonWeatherData = OpenWeatherJsonUtils
+                        .getSimpleWeatherStringsFromJson(MainActivity.this, jsonWeatherResponse);
+
+                return simpleJsonWeatherData;
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
         }
 
         //Metodo para mostrar los resultados

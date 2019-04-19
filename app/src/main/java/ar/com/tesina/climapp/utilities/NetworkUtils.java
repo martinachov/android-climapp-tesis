@@ -3,8 +3,10 @@ package ar.com.tesina.climapp.utilities;
 import android.net.Uri;
 import android.util.Log;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -18,10 +20,7 @@ public class NetworkUtils {
     private static final String TAG = NetworkUtils.class.getSimpleName();
 
     private static final String DYNAMIC_WEATHER_URL =
-            "http://api.openweathermap.org/data/2.5/weather";
-
-    private static final String STATIC_WEATHER_URL =
-            "https://andfun-weather.udacity.com/staticweather";
+            "http://api.openweathermap.org/data/2.5/forecast";
 
     private static final String FORECAST_BASE_URL = DYNAMIC_WEATHER_URL;
 
@@ -29,28 +28,35 @@ public class NetworkUtils {
 
     private static final String units = "metric";
 
+    private static final String api_key = "5f4ff9c2842fb16fdbefb7744e698d7f";
+
     private static final int numDays = 14;
 
+    final static String ID_PARAM = "id";
     final static String QUERY_PARAM = "q";
     final static String LAT_PARAM = "lat";
     final static String LON_PARAM = "lon";
     final static String FORMAT_PARAM = "mode";
     final static String UNITS_PARAM = "units";
     final static String DAYS_PARAM = "cnt";
+    final static String API_KEY = "appid";
+
 
     /**
      * Construye la URL para la ubicacion pasada por parametro
+     *
+     * http://api.openweathermap.org/data/2.5/forecast?id=3432043&appid=5f4ff9c2842fb16fdbefb7744e698d7f
      *
      * @param locationQuery
      * @return URL
      */
     public static URL buildUrl(String locationQuery) {
-        // COMPLETED (1) Fix this method to return the URL used to query Open Weather Map's API
         Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
-                .appendQueryParameter(QUERY_PARAM, locationQuery)
+                .appendQueryParameter(ID_PARAM, locationQuery)
                 .appendQueryParameter(FORMAT_PARAM, format)
                 .appendQueryParameter(UNITS_PARAM, units)
                 .appendQueryParameter(DAYS_PARAM, Integer.toString(numDays))
+                .appendQueryParameter(API_KEY, api_key)
                 .build();
 
         URL url = null;
