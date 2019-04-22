@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.net.URL;
@@ -21,12 +23,20 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView mWeatherTextView;
 
+    private TextView mErrorMessageDisplay;
+
+    private ProgressBar mLoadingIndicator;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forecast);
 
         mWeatherTextView = (TextView) findViewById(R.id.tv_weather_data);
+
+        mErrorMessageDisplay = (TextView) findViewById(R.id.tv_error_message_display);
+
+        mLoadingIndicator = (ProgressBar) findViewById(R.id.pb_loading_indicator);
 
         loadWeatherData();
     }
@@ -35,14 +45,37 @@ public class MainActivity extends AppCompatActivity {
      *
      */
     private void loadWeatherData() {
+        showWeatherDataView();
         String location = getPreferredWeatherLocation(this);
         new FetchWeatherTask().execute(location);
+    }
+
+    /**
+     * Método que hace visible la vista de los datos meteorológicos y ocultará el mensaje de error.
+     */
+    private void showWeatherDataView() {
+        mErrorMessageDisplay.setVisibility(View.INVISIBLE);
+        mWeatherTextView.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * Método que hace visible el error y oculta la vista de los datos meteorológicos.
+     */
+    private void showErrorMessage() {
+        mWeatherTextView.setVisibility(View.INVISIBLE);
+        mErrorMessageDisplay.setVisibility(View.VISIBLE);
     }
 
     /**
      * Clase que realiza el llamado asincronico para obtener los datos
      */
     public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mLoadingIndicator.setVisibility(View.VISIBLE);
+        }
 
         @Override
         protected String[] doInBackground(String... params) {
@@ -74,10 +107,14 @@ public class MainActivity extends AppCompatActivity {
         //Metodo para mostrar los resultados
         @Override
         protected void onPostExecute(String[] weatherData) {
+            mLoadingIndicator.setVisibility(View.INVISIBLE);
             if (weatherData != null) {
+                showWeatherDataView();
                 for (String weatherString : weatherData) {
                     mWeatherTextView.append((weatherString) + "\n\n\n");
                 }
+            } else {
+                showErrorMessage();
             }
         }
     }

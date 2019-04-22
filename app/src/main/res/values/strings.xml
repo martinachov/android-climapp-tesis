@@ -5,6 +5,10 @@
     <!--Para refrescar datos-->
     <string name="action_refresh">Recargar</string>
 
+    <string name="error_message">
+        Ocurrio un error. Por favor vuelva a intentarlo.
+    </string>
+
     <!-- - - - - - - - - - - - - -->
     <!--Used by SunshineDateUtils-->
     <!-- - - - - - - - - - - - - -->
