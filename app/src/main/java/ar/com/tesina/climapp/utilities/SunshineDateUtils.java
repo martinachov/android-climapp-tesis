@@ -80,34 +80,25 @@ class SunshineDateUtils {
         long localDate = getLocalDateFromUTC(dateInMillis);
         long dayNumber = getDayNumber(localDate);
         long currentDayNumber = getDayNumber(System.currentTimeMillis());
+        Locale spanishLocale=new Locale("es", "ES");
 
         if (dayNumber == currentDayNumber || showFullDate) {
             /*
-             * If the date we're building the String for is today's date, the format
-             * is "Today, June 24"
+             * Para el dia de HOY
              */
             String dayName = getDayName(context, localDate);
             String readableDate = getReadableDateString(context, localDate);
             if (dayNumber - currentDayNumber < 2) {
-                /*
-                 * Since there is no localized format that returns "Today" or "Tomorrow" in the API
-                 * levels we have to support, we take the name of the day (from SimpleDateFormat)
-                 * and use it to replace the date from DateUtils. This isn't guaranteed to work,
-                 * but our testing so far has been conclusively positive.
-                 *
-                 * For information on a simpler API to use (on API > 18), please check out the
-                 * documentation on DateFormat#getBestDateTimePattern(Locale, String)
-                 * https://developer.android.com/reference/android/text/format/DateFormat.html#getBestDateTimePattern
-                 */
                 String localizedDayName = new SimpleDateFormat("EEEE").format(localDate);
                 return readableDate.replace(localizedDayName, dayName);
             } else {
                 return readableDate;
             }
         } else if (dayNumber < currentDayNumber + 7) {
-            /* If the input date is less than a week in the future, just return the day name. */
+            //Para los siguientes 7 dias
             return getDayName(context, localDate);
         } else {
+            //Para el resto de los dias
             int flags = DateUtils.FORMAT_SHOW_DATE
                     | DateUtils.FORMAT_NO_YEAR
                     | DateUtils.FORMAT_ABBREV_ALL

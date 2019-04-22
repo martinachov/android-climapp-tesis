@@ -1,6 +1,10 @@
 <resources xmlns:xliff="http://schemas.android.com/apk/res-auto">
     <string name="app_name">ClimApp</string>
 
+
+    <!--Para refrescar datos-->
+    <string name="action_refresh">Recargar</string>
+
     <!-- - - - - - - - - - - - - -->
     <!--Used by SunshineDateUtils-->
     <!-- - - - - - - - - - - - - -->
