@@ -3,18 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
+
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    RecyclerView será responsable de mostrar nuestra lista de pronosticos meteorológicos.
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview_forecast"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/tv_weather_data"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:textSize="20sp" />
-
-    </ScrollView>
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="8dp"/>
 
     <TextView
         android:id="@+id/tv_error_message_display"
@@ -31,16 +29,6 @@
         android:layout_width="42dp"
         android:layout_gravity="center"
         android:visibility="invisible" />
-
-    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    RecyclerView será responsable de mostrar nuestra lista de pronosticos meteorológicos.
-  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-    <!--    <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerview_forecast"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:paddingBottom="8dp"/>-->
 
 </FrameLayout>
 
