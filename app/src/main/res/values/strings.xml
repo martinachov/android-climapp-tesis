@@ -9,6 +9,10 @@
         Ocurrio un error. Por favor vuelva a intentarlo.
     </string>
 
+    <string name="action_map">Ubicacion</string>
+
+    <string name="action_share">Compartir</string>
+
     <!-- - - - - - - - - - - - - -->
     <!--Used by SunshineDateUtils-->
     <!-- - - - - - - - - - - - - -->
