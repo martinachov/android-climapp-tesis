@@ -12,6 +12,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
 
+import javax.net.ssl.HttpsURLConnection;
+
 /**
  * Clase utilitaria para la comunicacion con la API donde se recuperan los datos del clima
  */
@@ -20,7 +22,7 @@ public class NetworkUtils {
     private static final String TAG = NetworkUtils.class.getSimpleName();
 
     private static final String DYNAMIC_WEATHER_URL =
-            "http://api.openweathermap.org/data/2.5/forecast";
+            "https://api.openweathermap.org/data/2.5/forecast";
 
     private static final String FORECAST_BASE_URL = DYNAMIC_WEATHER_URL;
 
@@ -79,7 +81,7 @@ public class NetworkUtils {
      * @throws IOException
      */
     public static String getResponseFromHttpUrl(URL url) throws IOException {
-        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+        HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
         try {
             InputStream in = urlConnection.getInputStream();
 
