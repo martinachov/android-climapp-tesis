@@ -54,11 +54,9 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     /**
-     * Uses the ShareCompat Intent builder to create our Forecast intent for sharing. We set the
-     * type of content that we are sharing (just regular text), the text itself, and we return the
-     * newly created Intent.
+     * Se usa ShareCompat Intent builder para compartir datos. S
      *
-     * @return The Intent to use to start our share.
+     * @return
      */
     private Intent createShareForecastIntent() {
         Intent shareIntent = ShareCompat.IntentBuilder.from(this)
@@ -68,12 +66,35 @@ public class DetailActivity extends AppCompatActivity {
         return shareIntent;
     }
 
+    /**
+     *
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.detail, menu);
         MenuItem menuItem = menu.findItem(R.id.action_share);
         menuItem.setIntent(createShareForecastIntent());
         return true;
+    }
+
+    /**
+     *
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_settings) {
+            Intent startSettingsActivity = new Intent(this, SettingsActivity.class);
+            startActivity(startSettingsActivity);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }

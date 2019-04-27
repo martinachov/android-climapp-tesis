@@ -109,13 +109,12 @@ class SunshineDateUtils {
     }
 
     /**
-     * Returns a date string in the format specified, which shows a date, without a year,
-     * abbreviated, showing the full weekday.
+     * Devuelve fecha en forma abreviada
      *
-     * @param context      Used by DateUtils to formate the date in the current locale
-     * @param timeInMillis Time in milliseconds since the epoch (local time)
+     * @param context
+     * @param timeInMillis
      *
-     * @return The formatted date string
+     * @return
      */
     private static String getReadableDateString(Context context, long timeInMillis) {
         int flags = DateUtils.FORMAT_SHOW_DATE
@@ -134,10 +133,6 @@ class SunshineDateUtils {
      * @return dia de la semana
      */
     private static String getDayName(Context context, long dateInMillis) {
-        /*
-         * If the date is today, return the localized version of "Today" instead of the actual
-         * day name.
-         */
         long dayNumber = getDayNumber(dateInMillis);
         long currentDayNumber = getDayNumber(System.currentTimeMillis());
         if (dayNumber == currentDayNumber) {

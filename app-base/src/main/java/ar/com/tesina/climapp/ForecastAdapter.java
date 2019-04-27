@@ -30,7 +30,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
     }
 
     /**
-     * Cache of the children views for a forecast list item.
+     *
      */
     public class ForecastAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final TextView mWeatherTextView;
@@ -49,15 +49,12 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
     }
 
     /**
-     * This gets called when each new ViewHolder is created. This happens when the RecyclerView
-     * is laid out. Enough ViewHolders will be created to fill the screen and allow for scrolling.
+     * Se llama cuando se crea cada nuevo ViewHolder. Se crearán suficientes ViewHolders
+     * para llenar la pantalla y permitir el desplazamiento.
      *
-     * @param viewGroup The ViewGroup that these ViewHolders are contained within.
-     * @param viewType  If your RecyclerView has more than one type of item (which ours doesn't) you
-     *                  can use this viewType integer to provide a different layout. See
-     *                  {@link android.support.v7.widget.RecyclerView.Adapter#getItemViewType(int)}
-     *                  for more details.
-     * @return A new ForecastAdapterViewHolder that holds the View for each list item
+     * @param viewGroup ViewGroup donde estan los ViewHolders.
+     * @param viewType
+     * @return un nuevo ForecastAdapterViewHolder que contiene la vista para cada elemento de la lista
      */
     @Override
     public ForecastAdapterViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
@@ -71,14 +68,13 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
     }
 
     /**
-     * OnBindViewHolder is called by the RecyclerView to display the data at the specified
-     * position. In this method, we update the contents of the ViewHolder to display the weather
-     * details for this particular position, using the "position" argument that is conveniently
-     * passed into us.
+     * OnBindViewHolder es llamado por RecyclerView para mostrar los datos en la posición
+     * especificada. En este método, actualizamos el contenido de ViewHolder para mostrar
+     * los datos del clima para esta posición en particular, usando el argumento de "posición".
      *
-     * @param forecastAdapterViewHolder The ViewHolder which should be updated to represent the
-     *                                  contents of the item at the given position in the data set.
-     * @param position                  The position of the item within the adapter's data set.
+     * @param forecastAdapterViewHolder El ViewHolder que debe actualizarse para representar
+     *                                  el contenido del elemento en la posición dada
+     * @param position La posición del elemento dentro de los datos del adapter.
      */
     @Override
     public void onBindViewHolder(@NonNull ForecastAdapterViewHolder forecastAdapterViewHolder, int position) {
@@ -87,10 +83,9 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
     }
 
     /**
-     * This method simply returns the number of items to display. It is used behind the scenes
-     * to help layout our Views and for animations.
+     * Retorna numero de items a mostrar.
      *
-     * @return The number of items available in our forecast
+     * @return
      */
     @Override
     public int getItemCount() {
@@ -99,9 +94,9 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
     }
 
     /**
-     * This method is used to set the weather forecast on a ForecastAdapter if we've already
-     * created one. This is handy when we get new data from the web but don't want to create a
-     * new ForecastAdapter to display it.
+     * Este método se utiliza para establecer el pronóstico del tiempo en un ForecastAdapter
+     * si ya hemos creado uno. Esto es útil cuando obtenemos nuevos datos de la web pero no
+     * queremos crear un nuevo ForecastAdapter para mostrarlos.
      *
      * @param weatherData The new weather data to be displayed.
      */

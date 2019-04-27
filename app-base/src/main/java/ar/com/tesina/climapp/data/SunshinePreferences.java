@@ -14,16 +14,13 @@ public class SunshinePreferences {
      * La ubicación predeterminada que devolverá este método es "3432043"
      *
      * @param context para recuperar SharedPreferences
-     * @return Location The current user has set in SharedPreferences. Will default to
-     * "94043,USA" if SharedPreferences have not been implemented yet.
+     * @return Location
      */
     public static String getPreferredWeatherLocation(Context context) {
-        /** This will be implemented in a future lesson **/
         return getDefaultWeatherLocation();
     }
 
     private static String getDefaultWeatherLocation() {
-        /** This will be implemented in a future lesson **/
         return DEFAULT_WEATHER_LOCATION;
     }
 
