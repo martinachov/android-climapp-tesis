@@ -52,7 +52,7 @@ public class NetworkUtils {
      */
     public static URL buildUrl(String locationQuery) {
         Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
-                .appendQueryParameter(ID_PARAM, locationQuery)
+                .appendQueryParameter(QUERY_PARAM, locationQuery)
                 .appendQueryParameter(FORMAT_PARAM, format)
                 .appendQueryParameter(UNITS_PARAM, units)
                 .appendQueryParameter(DAYS_PARAM, Integer.toString(numDays))

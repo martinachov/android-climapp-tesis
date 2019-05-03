@@ -41,6 +41,19 @@
         <xliff:g id="speed">%1$1.0f</xliff:g> mph <xliff:g id="direction">%2$s</xliff:g>
     </string>
 
+    <!-- - - - - - - - - - - - - - - - -->
+    <!--Para el menu de configuracion  -->
+    <!-- - - - - - - - - - - - - - - - -->
+    <string name="pref_location_label">Ubicacion</string>
+    <string name="pref_location_key" translatable="false">ubicacion</string>
+    <string name="pref_location_default" translatable="false">La Plata,AR</string>
+    <string name="pref_units_label">Unidad de medicion</string>
+    <string name="pref_units_label_metric">Grados Centigrados</string>
+    <string name="pref_units_label_imperial">Grados Farenheit</string>
+    <string name="pref_units_key" translatable="false">unidad</string>
+    <string name="pref_units_metric" translatable="false">centigrados</string>
+    <string name="pref_units_imperial" translatable="false">farenheit</string>
+
     <!-- Weather Conditions (From OpenWeatherMap) -->
     <string name="condition_2xx">Storm</string>
     <string name="condition_3xx">Drizzle</string>
