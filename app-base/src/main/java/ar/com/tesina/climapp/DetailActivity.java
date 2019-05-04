@@ -3,6 +3,7 @@ package ar.com.tesina.climapp;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -43,9 +44,15 @@ public class DetailActivity extends AppCompatActivity {
                 mForecast = intentThatStartedThisActivity.getStringExtra(Intent.EXTRA_TEXT);
                 mWeatherDisplay.setText(mForecast);
             } else {
+                Uri data = getIntent().getData();
+                if (data != null && data.isHierarchical()) {
+                    String uri = data.getQueryParameter("Q1");
+                    mWeatherDisplay.setText("ENTRE IGUAL");
+                    Log.i("MyApp", "Deep link clicked " + uri);
+                }
                 try {
                     String[] result = new AsyncCaller().execute(DetailActivity.this).get();
-                    mWeatherDisplay.setText(result[0]);
+                  //  mWeatherDisplay.setText(result[0]);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
