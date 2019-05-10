@@ -6,10 +6,11 @@ import android.text.format.DateUtils;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 import ar.com.tesina.climapp.R;
 
-class SunshineDateUtils {
+public class SunshineDateUtils {
 
     public static final long SECOND_IN_MILLIS = 1000;
     public static final long MINUTE_IN_MILLIS = SECOND_IN_MILLIS * 60;
@@ -40,6 +41,21 @@ class SunshineDateUtils {
         // Normaliza la fecha de inicio al comienzo del día (UTC) en la hora local
         long retValNew = date / DAY_IN_MILLIS * DAY_IN_MILLIS;
         return retValNew;
+    }
+
+    /**
+     * Retorna si la fecha esta normalizada
+     *
+     * @param millisSinceEpoch
+     *
+     * @return
+     */
+    public static boolean isDateNormalized(long millisSinceEpoch) {
+        boolean isDateNormalized = false;
+        if (millisSinceEpoch % DAY_IN_MILLIS == 0) {
+            isDateNormalized = true;
+        }
+        return isDateNormalized;
     }
 
     /**
@@ -144,5 +160,17 @@ class SunshineDateUtils {
             SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE", spanishLocale);
             return dayFormat.format(dateInMillis);
         }
+    }
+
+    public static long getNormalizedUtcDateForToday() {
+
+        long utcNowMillis = System.currentTimeMillis();
+        TimeZone currentTimeZone = TimeZone.getDefault();
+        long gmtOffsetMillis = currentTimeZone.getOffset(utcNowMillis);
+        long timeSinceEpochLocalTimeMillis = utcNowMillis + gmtOffsetMillis;
+        long daysSinceEpochLocal = TimeUnit.MILLISECONDS.toDays(timeSinceEpochLocalTimeMillis);
+        long normalizedUtcMidnightMillis = TimeUnit.DAYS.toMillis(daysSinceEpochLocal);
+
+        return normalizedUtcMidnightMillis;
     }
 }

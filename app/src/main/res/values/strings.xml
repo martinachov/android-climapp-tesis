@@ -1,7 +1,6 @@
 <resources xmlns:xliff="http://schemas.android.com/apk/res-auto">
     <string name="app_name">ClimApp</string>
 
-
     <!--Para refrescar datos-->
     <string name="action_refresh">Recargar</string>
 
@@ -14,6 +13,8 @@
     <string name="action_share">Compartir</string>
 
     <string name="action_settings">Configuracion</string>
+
+    <string name="content_authority">ar.com.tesina.climapp</string>
 
     <!-- - - - - - - - - - - - - - - -->
     <!-- Util para manejo de Fechas  -->
@@ -39,6 +40,14 @@
 
     <string name="format_wind_mph">
         <xliff:g id="speed">%1$1.0f</xliff:g> mph <xliff:g id="direction">%2$s</xliff:g>
+    </string>
+
+    <string name="format_humidity">
+        <xliff:g id="humidity">%1.0f</xliff:g> %%
+    </string>
+
+    <string name="format_pressure">
+        <xliff:g id="pressure">%1.0f</xliff:g> hPa
     </string>
 
     <!-- - - - - - - - - - - - - - - - -->

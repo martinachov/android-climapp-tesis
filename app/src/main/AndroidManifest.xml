@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+
         <activity android:name=".MainActivity"
             android:launchMode="singleTop">
             <intent-filter>
@@ -20,6 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".DetailActivity"
             android:parentActivityName=".MainActivity">
@@ -27,7 +29,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+
         <activity android:name=".SettingsActivity"></activity>
+
+        <provider
+            android:name=".data.WeatherProvider"
+            android:authorities="@string/content_authority"
+            android:exported="false"/>
+
+        <service
+            android:name=".sync.ClimappSyncIntentService"
+            android:exported="false" />
+
     </application>
 
 </manifest>

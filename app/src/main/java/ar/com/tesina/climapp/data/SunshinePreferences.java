@@ -11,6 +11,8 @@ public class SunshinePreferences {
     private static final String DEFAULT_WEATHER_LOCATION = "La Plata,AR";
     //private static final double[] DEFAULT_WEATHER_COORDINATES = {34.9215, 57.9546};
 
+    public static final String PREF_COORD_LAT = "coord_lat";
+    public static final String PREF_COORD_LONG = "coord_long";
 
 
     /**
@@ -54,4 +56,68 @@ public class SunshinePreferences {
         }
         return userPrefersMetric;
     }
+
+    /**
+     *
+     * @param context
+     * @param lat
+     * @param lon
+     */
+    public static void setLocationDetails(Context context, double lat, double lon) {
+        SharedPreferences sp = android.preference.PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sp.edit();
+
+        editor.putLong(PREF_COORD_LAT, Double.doubleToRawLongBits(lat));
+        editor.putLong(PREF_COORD_LONG, Double.doubleToRawLongBits(lon));
+        editor.apply();
+    }
+
+    /**
+     *
+     * @param context
+     * @return true si lat/long esta guardado en SharedPreferences
+     */
+    public static boolean isLocationLatLonAvailable(Context context) {
+        SharedPreferences sp = android.preference.PreferenceManager.getDefaultSharedPreferences(context);
+
+        boolean spContainLatitude = sp.contains(PREF_COORD_LAT);
+        boolean spContainLongitude = sp.contains(PREF_COORD_LONG);
+
+        boolean spContainBothLatitudeAndLongitude = false;
+        if (spContainLatitude && spContainLongitude) {
+            spContainBothLatitudeAndLongitude = true;
+        }
+
+        return spContainBothLatitudeAndLongitude;
+    }
+
+    /**
+     * @param context
+     * @return
+     */
+    public static double[] getLocationCoordinates(Context context) {
+        SharedPreferences sp = android.preference.PreferenceManager.getDefaultSharedPreferences(context);
+
+        double[] preferredCoordinates = new double[2];
+
+        preferredCoordinates[0] = Double
+                .longBitsToDouble(sp.getLong(PREF_COORD_LAT, Double.doubleToRawLongBits(0.0)));
+        preferredCoordinates[1] = Double
+                .longBitsToDouble(sp.getLong(PREF_COORD_LONG, Double.doubleToRawLongBits(0.0)));
+
+        return preferredCoordinates;
+    }
+
+    /**
+     * @param context
+     */
+    public static void resetLocationCoordinates(Context context) {
+        SharedPreferences sp = android.preference.PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sp.edit();
+
+        editor.remove(PREF_COORD_LAT);
+        editor.remove(PREF_COORD_LONG);
+        editor.apply();
+    }
+
 }

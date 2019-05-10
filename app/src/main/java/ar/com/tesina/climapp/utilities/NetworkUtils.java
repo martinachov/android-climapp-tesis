@@ -1,5 +1,6 @@
 package ar.com.tesina.climapp.utilities;
 
+import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
@@ -11,6 +12,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
+
+import ar.com.tesina.climapp.data.SunshinePreferences;
 
 /**
  * Clase utilitaria para la comunicacion con la API donde se recuperan los datos del clima
@@ -94,6 +97,73 @@ public class NetworkUtils {
             }
         } finally {
             urlConnection.disconnect();
+        }
+    }
+
+    /**
+     *
+     * @param context
+     * @return
+     */
+    public static URL getUrl(Context context) {
+        if (SunshinePreferences.isLocationLatLonAvailable(context)) {
+            double[] preferredCoordinates = SunshinePreferences.getLocationCoordinates(context);
+            double latitude = preferredCoordinates[0];
+            double longitude = preferredCoordinates[1];
+            return buildUrlWithLatitudeLongitude(latitude, longitude);
+        } else {
+            String locationQuery = SunshinePreferences.getPreferredWeatherLocation(context);
+            return buildUrlWithLocationQuery(locationQuery);
+        }
+    }
+
+    /**
+     *
+     * @param latitude
+     * @param longitude
+     * @return
+     */
+    private static URL buildUrlWithLatitudeLongitude(Double latitude, Double longitude) {
+        Uri weatherQueryUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
+                .appendQueryParameter(LAT_PARAM, String.valueOf(latitude))
+                .appendQueryParameter(LON_PARAM, String.valueOf(longitude))
+                .appendQueryParameter(FORMAT_PARAM, format)
+                .appendQueryParameter(UNITS_PARAM, units)
+                .appendQueryParameter(DAYS_PARAM, Integer.toString(numDays))
+                .appendQueryParameter(API_KEY, api_key)
+                .build();
+
+        try {
+            URL weatherQueryUrl = new URL(weatherQueryUri.toString());
+            Log.v(TAG, "URL: " + weatherQueryUrl);
+            return weatherQueryUrl;
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     *
+     * @param locationQuery
+     * @return
+     */
+    private static URL buildUrlWithLocationQuery(String locationQuery) {
+        Uri weatherQueryUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
+                .appendQueryParameter(QUERY_PARAM, locationQuery)
+                .appendQueryParameter(FORMAT_PARAM, format)
+                .appendQueryParameter(UNITS_PARAM, units)
+                .appendQueryParameter(DAYS_PARAM, Integer.toString(numDays))
+                .appendQueryParameter(API_KEY, api_key)
+                .build();
+
+        try {
+            URL weatherQueryUrl = new URL(weatherQueryUri.toString());
+            Log.v(TAG, "URL: " + weatherQueryUrl);
+            return weatherQueryUrl;
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }
