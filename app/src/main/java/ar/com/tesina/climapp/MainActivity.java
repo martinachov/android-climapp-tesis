@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements
 
         getSupportLoaderManager().initLoader(ID_FORECAST_LOADER, null, this);
 
-        ClimappSyncUtils.startImmediateSync(this);
+        ClimappSyncUtils.initialize(this);
     }
 
     /**
