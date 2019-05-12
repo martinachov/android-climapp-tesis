@@ -34,6 +34,8 @@
         <xliff:g id="temp">%1.0f</xliff:g>\u00B0F
     </string>
 
+    <string name="wind_label">Viento</string>
+
     <string name="format_wind_kmh">
         <xliff:g id="speed">%1$1.0f</xliff:g> km/h <xliff:g id="direction">%2$s</xliff:g>
     </string>
@@ -42,10 +44,12 @@
         <xliff:g id="speed">%1$1.0f</xliff:g> mph <xliff:g id="direction">%2$s</xliff:g>
     </string>
 
+    <string name="humidity_label">Humedad</string>
     <string name="format_humidity">
         <xliff:g id="humidity">%1.0f</xliff:g> %%
     </string>
 
+    <string name="pressure_label">Presion</string>
     <string name="format_pressure">
         <xliff:g id="pressure">%1.0f</xliff:g> hPa
     </string>
