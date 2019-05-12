@@ -140,4 +140,20 @@
     <!-- - - - - - - - - - - - - - -->
     <!--NONE-->
 
+    <string name="a11y_forecast">Forecast: <xliff:g id="condition">%1$s</xliff:g></string>
+    <string name="a11y_forecast_icon">Forecast icon: <xliff:g id="condition">%1$s</xliff:g></string>
+    <string name="a11y_high_temp">High: <xliff:g id="high">%1$s</xliff:g></string>
+    <string name="a11y_low_temp">Low: <xliff:g id="low">%1$s</xliff:g></string>
+    <string name="a11y_humidity">Humidity: <xliff:g id="humidity">%1$s</xliff:g></string>
+    <string name="a11y_pressure">Barometric Pressure: <xliff:g id="pressure">%1$s</xliff:g></string>
+    <string name="a11y_wind">Wind speed and direction: <xliff:g id="wind">%1$s</xliff:g></string>
+
+    <string name="pref_last_notification">last_notification</string>
+
+    <string name="format_notification">
+        Pronostico:<xliff:g id="condition">%1$s</xliff:g> -
+        Max:<xliff:g id="high">%2$s</xliff:g>
+        Min:<xliff:g id="low">%3$s</xliff:g>
+    </string>
+
 </resources>

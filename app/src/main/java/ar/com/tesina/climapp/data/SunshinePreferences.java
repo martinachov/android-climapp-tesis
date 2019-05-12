@@ -120,4 +120,16 @@ public class SunshinePreferences {
         editor.apply();
     }
 
+    /**
+     * @param context
+     * @param timeOfNotification
+     */
+    public static void saveLastNotificationTime(Context context, long timeOfNotification) {
+        SharedPreferences sp = android.preference.PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sp.edit();
+        String lastNotificationKey = context.getString(R.string.pref_last_notification);
+        editor.putLong(lastNotificationKey, timeOfNotification);
+        editor.apply();
+    }
+
 }
