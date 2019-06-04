@@ -23,7 +23,7 @@ public class NetworkUtils {
     private static final String TAG = NetworkUtils.class.getSimpleName();
 
     private static final String DYNAMIC_WEATHER_URL =
-            "http://api.openweathermap.org/data/2.5/forecast";
+            "https://api.openweathermap.org/data/2.5/forecast";
 
     private static final String FORECAST_BASE_URL = DYNAMIC_WEATHER_URL;
 

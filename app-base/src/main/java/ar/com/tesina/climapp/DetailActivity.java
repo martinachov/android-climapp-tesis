@@ -30,8 +30,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import java.net.URI;
+
 import ar.com.tesina.climapp.data.WeatherContract;
 import ar.com.tesina.climapp.databinding.ActivityDetailBinding;
+import ar.com.tesina.climapp.sync.ClimappSyncUtils;
 import ar.com.tesina.climapp.utilities.SunshineDateUtils;
 import ar.com.tesina.climapp.utilities.SunshineWeatherUtils;
 
@@ -64,10 +67,13 @@ public class DetailActivity extends AppCompatActivity implements
     public static final int INDEX_WEATHER_CONDITION_ID = 7;
 
     private static final int ID_DETAIL_LOADER = 353;
+    private static final int ID_INSTANT_LOADER = 354;
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
     private Uri mUri;
+    private Uri mInstantUri;
+
     private ActivityDetailBinding mDetailBinding;
     LocationManager locationManager;
     String provider;
@@ -80,10 +86,20 @@ public class DetailActivity extends AppCompatActivity implements
 
         mUri = getIntent().getData();
 
+        //checkLocationPermission();
+        //if (mUri == null) throw new NullPointerException("URI no puede ser null");
 
-        checkLocationPermission();
-        if (mUri == null) throw new NullPointerException("URI no puede ser null");
-        getSupportLoaderManager().initLoader(ID_DETAIL_LOADER, null, this);
+
+        if(mUri.toString().equalsIgnoreCase("http://climaap.tesina.unlp.com/detail")){
+            mUri = Uri.parse("content://ar.com.tesina.climapp/weather");
+            getSupportLoaderManager().initLoader(ID_INSTANT_LOADER, null, this);
+            ClimappSyncUtils.initialize(this);
+
+        } else {
+            getSupportLoaderManager().initLoader(ID_DETAIL_LOADER, null, this);
+        }
+
+
 
     }
 
@@ -215,6 +231,15 @@ public class DetailActivity extends AppCompatActivity implements
                 return new CursorLoader(this,
                         mUri,
                         WEATHER_DETAIL_PROJECTION,
+                        null,
+                        null,
+                        null);
+
+            case ID_INSTANT_LOADER:
+
+                return new CursorLoader(this,
+                         mUri,
+                         WEATHER_DETAIL_PROJECTION,
                         null,
                         null,
                         null);
