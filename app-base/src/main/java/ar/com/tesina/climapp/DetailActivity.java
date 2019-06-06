@@ -77,6 +77,7 @@ public class DetailActivity extends AppCompatActivity implements
     private ActivityDetailBinding mDetailBinding;
     LocationManager locationManager;
     String provider;
+    private Boolean instantApp = Boolean.FALSE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +92,7 @@ public class DetailActivity extends AppCompatActivity implements
 
 
         if(mUri.toString().equalsIgnoreCase("http://climaap.tesina.unlp.com/detail")){
+            instantApp = Boolean.TRUE;
             mUri = Uri.parse("content://ar.com.tesina.climapp/weather");
             getSupportLoaderManager().initLoader(ID_INSTANT_LOADER, null, this);
             ClimappSyncUtils.initialize(this);
@@ -376,9 +378,11 @@ public class DetailActivity extends AppCompatActivity implements
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.detail, menu);
-        MenuItem menuItem = menu.findItem(R.id.action_share);
-        menuItem.setIntent(createShareForecastIntent());
+        if(!instantApp){
+            getMenuInflater().inflate(R.menu.detail, menu);
+            MenuItem menuItem = menu.findItem(R.id.action_share);
+            menuItem.setIntent(createShareForecastIntent());
+        }
         return true;
     }
 
