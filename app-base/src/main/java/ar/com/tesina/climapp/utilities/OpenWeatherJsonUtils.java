@@ -23,6 +23,7 @@ public class OpenWeatherJsonUtils {
     private static final String OWM_DESCRIPTION = "main";
     private static final String OWM_MESSAGE_CODE = "cod";
     private static final String OWM_CITY = "city";
+    private static final String OWM_NAME = "name";
     private static final String OWM_COORD = "coord";
     private static final String OWM_LATITUDE = "lat";
     private static final String OWM_LONGITUDE = "lon";
@@ -68,6 +69,7 @@ public class OpenWeatherJsonUtils {
         JSONObject cityCoord = cityJson.getJSONObject(OWM_COORD);
         double cityLatitude = cityCoord.getDouble(OWM_LATITUDE);
         double cityLongitude = cityCoord.getDouble(OWM_LONGITUDE);
+        String cityName = cityJson.getString(OWM_NAME);
 
         SunshinePreferences.setLocationDetails(context, cityLatitude, cityLongitude);
 
@@ -110,6 +112,7 @@ public class OpenWeatherJsonUtils {
             low = mainObject.getDouble(OWM_MIN);
 
             ContentValues weatherValues = new ContentValues();
+            weatherValues.put(WeatherContract.WeatherEntry.COLUMN_CITY, cityName);
             weatherValues.put(WeatherContract.WeatherEntry.COLUMN_DATE, dateTimeMillis);
             weatherValues.put(WeatherContract.WeatherEntry.COLUMN_HUMIDITY, humidity);
             weatherValues.put(WeatherContract.WeatherEntry.COLUMN_PRESSURE, pressure);

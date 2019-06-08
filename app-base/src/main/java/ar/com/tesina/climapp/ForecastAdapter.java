@@ -4,12 +4,14 @@ import android.content.Context;
 import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import ar.com.tesina.climapp.data.SunshinePreferences;
 import ar.com.tesina.climapp.utilities.SunshineDateUtils;
 import ar.com.tesina.climapp.utilities.SunshineWeatherUtils;
 
@@ -53,10 +55,12 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
         final TextView highTempView;
         final TextView lowTempView;
         final ImageView iconView;
+        final TextView city;
 
         public ForecastAdapterViewHolder(View view) {
             super(view);
 
+            city = (TextView) view.findViewById(R.id.city);
             iconView = (ImageView) view.findViewById(R.id.weather_icon);
             dateView = (TextView) view.findViewById(R.id.date);
             descriptionView = (TextView) view.findViewById(R.id.weather_description);
@@ -70,7 +74,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
         public void onClick(View view) {
             int adapterPosition = getAdapterPosition();
             mCursor.moveToPosition(adapterPosition);
-            long dateInMillis = mCursor.getLong(MainActivity.INDEX_WEATHER_DATE);
+            long dateInMillis = mCursor.getLong(FirstFragment.INDEX_WEATHER_DATE);
             mClickHandler.onClick(dateInMillis);
         }
     }
@@ -132,7 +136,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
         /****************
          * Icono *
          ****************/
-        int weatherId = mCursor.getInt(MainActivity.INDEX_WEATHER_CONDITION_ID);
+        int weatherId = mCursor.getInt(FirstFragment.INDEX_WEATHER_CONDITION_ID);
         int weatherImageId;
         int viewType = getItemViewType(position);
 
@@ -153,10 +157,18 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
 
         forecastAdapterViewHolder.iconView.setImageResource(weatherImageId);
 
+
+
+        if(forecastAdapterViewHolder.city != null){
+            String cityName = mCursor.getString(FirstFragment.INDEX_WEATHER_CITY);
+            forecastAdapterViewHolder.city.setText(cityName);
+        }
+
+
         /****************
          * Fecha *
          ****************/
-        long dateInMillis = mCursor.getLong(MainActivity.INDEX_WEATHER_DATE);
+        long dateInMillis = mCursor.getLong(FirstFragment.INDEX_WEATHER_DATE);
         String dateString = SunshineDateUtils.getFriendlyDateString(mContext, dateInMillis, false);
         forecastAdapterViewHolder.dateView.setText(dateString);
 
@@ -171,7 +183,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
         /**************************
          * Temperatura maxima *
          **************************/
-        double highInCelsius = mCursor.getDouble(MainActivity.INDEX_WEATHER_MAX_TEMP);
+        double highInCelsius = mCursor.getDouble(FirstFragment.INDEX_WEATHER_MAX_TEMP);
         String highString = SunshineWeatherUtils.formatTemperature(mContext, highInCelsius);
         String highA11y = mContext.getString(R.string.a11y_high_temp, highString);
         forecastAdapterViewHolder.highTempView.setText(highString);
@@ -180,7 +192,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
         /*************************
          * Temperatura minima *
          *************************/
-        double lowInCelsius = mCursor.getDouble(MainActivity.INDEX_WEATHER_MIN_TEMP);
+        double lowInCelsius = mCursor.getDouble(FirstFragment.INDEX_WEATHER_MIN_TEMP);
         String lowString = SunshineWeatherUtils.formatTemperature(mContext, lowInCelsius);
         String lowA11y = mContext.getString(R.string.a11y_low_temp, lowString);
         forecastAdapterViewHolder.lowTempView.setText(lowString);

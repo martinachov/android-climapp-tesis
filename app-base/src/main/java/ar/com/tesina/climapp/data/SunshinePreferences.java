@@ -13,7 +13,7 @@ public class SunshinePreferences {
 
     public static final String PREF_COORD_LAT = "coord_lat";
     public static final String PREF_COORD_LONG = "coord_long";
-
+    public static final String PREF_CITY_NAME = "city_name";
 
     /**
      * Devuelve la ubicación actualmente establecida en Preferencias.
@@ -69,6 +69,7 @@ public class SunshinePreferences {
 
         editor.putLong(PREF_COORD_LAT, Double.doubleToRawLongBits(lat));
         editor.putLong(PREF_COORD_LONG, Double.doubleToRawLongBits(lon));
+
         editor.apply();
     }
 
@@ -106,6 +107,12 @@ public class SunshinePreferences {
                 .longBitsToDouble(sp.getLong(PREF_COORD_LONG, Double.doubleToRawLongBits(0.0)));
 
         return preferredCoordinates;
+    }
+
+    public static String getLocationName(Context context) {
+        SharedPreferences sp = android.preference.PreferenceManager.getDefaultSharedPreferences(context);
+
+        return sp.getString(PREF_CITY_NAME, "");
     }
 
     /**

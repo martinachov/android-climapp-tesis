@@ -29,6 +29,7 @@ public class WeatherDbHelper extends SQLiteOpenHelper {
                         WeatherEntry._ID               + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         WeatherEntry.COLUMN_DATE       + " INTEGER NOT NULL, "                 +
                         WeatherEntry.COLUMN_WEATHER_ID + " INTEGER NOT NULL,"                  +
+                        WeatherEntry.COLUMN_CITY       + " STRING NOT NULL,"                  +
                         WeatherEntry.COLUMN_MIN_TEMP   + " REAL NOT NULL, "                    +
                         WeatherEntry.COLUMN_MAX_TEMP   + " REAL NOT NULL, "                    +
                         WeatherEntry.COLUMN_HUMIDITY   + " REAL NOT NULL, "                    +
