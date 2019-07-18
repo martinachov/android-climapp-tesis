@@ -68,7 +68,7 @@ public class ClimappSyncUtils {
                 Uri forecastQueryUri = WeatherContract.WeatherEntry.CONTENT_URI;
                 String[] projectionColumns = {WeatherContract.WeatherEntry._ID};
                 String selectionStatement = WeatherContract.WeatherEntry
-                        .getSqlSelectForTodayOnwards();
+                        .getSqlSelectForTodayOnwards("La Plata");
 
                 Cursor cursor = context.getContentResolver().query(
                         forecastQueryUri,

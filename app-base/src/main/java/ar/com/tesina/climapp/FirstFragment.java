@@ -45,11 +45,10 @@ public class FirstFragment extends Fragment implements
 
 
 	// newInstance constructor for creating fragment with arguments
-	public static FirstFragment newInstance(int page, String title) {
+	public static FirstFragment newInstance(String cityName) {
 		FirstFragment fragmentFirst = new FirstFragment();
 		Bundle args = new Bundle();
-		args.putInt("someInt", page);
-		args.putString("someTitle", title);
+		args.putString("cityName", cityName);
 		fragmentFirst.setArguments(args);
 		return fragmentFirst;
 	}
@@ -126,7 +125,7 @@ public class FirstFragment extends Fragment implements
             case ID_FORECAST_LOADER:
                 Uri forecastQueryUri = WeatherContract.WeatherEntry.CONTENT_URI;
                 String sortOrder = WeatherContract.WeatherEntry.COLUMN_DATE + " ASC";
-                String selection = WeatherContract.WeatherEntry.getSqlSelectForTodayOnwards();
+                String selection = WeatherContract.WeatherEntry.getSqlSelectForTodayOnwards(this.getArguments().getString("cityName"));
                 return new CursorLoader(getActivity(),
                         forecastQueryUri,
                         MAIN_FORECAST_PROJECTION,

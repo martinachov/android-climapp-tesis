@@ -49,9 +49,9 @@ public class WeatherContract {
          *
          * @return The selection part of the weather query for today onwards
          */
-        public static String getSqlSelectForTodayOnwards() {
+        public static String getSqlSelectForTodayOnwards(String cityName) {
             long normalizedUtcNow = SunshineDateUtils.normalizeDate(System.currentTimeMillis());
-            return WeatherContract.WeatherEntry.COLUMN_DATE + " >= " + normalizedUtcNow;
+            return WeatherContract.WeatherEntry.COLUMN_DATE + " >= " + normalizedUtcNow + " AND " +  WeatherEntry.COLUMN_CITY + " == \"" + cityName + "\"";
         }
     }
 }

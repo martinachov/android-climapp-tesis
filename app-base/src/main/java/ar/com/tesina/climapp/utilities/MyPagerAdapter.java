@@ -24,11 +24,11 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0: // Fragment # 0 - This will show FirstFragment
-                    return FirstFragment.newInstance(0, "Page # 1");
+                    return FirstFragment.newInstance("La Plata");
                 case 1: // Fragment # 0 - This will show FirstFragment different title
-                    return FirstFragment.newInstance(1, "Page # 2");
+                    return FirstFragment.newInstance("La Plata");
                 case 2: // Fragment # 1 - This will show SecondFragment
-                    return FirstFragment.newInstance(2, "Page # 3");
+                    return FirstFragment.newInstance("La Plata");
                 default:
                     return null;
             }
